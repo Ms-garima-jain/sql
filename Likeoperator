@@ -1,0 +1,180 @@
+1: Basic LIKE Operator
+Objective: Retrieve records from a table based on partial string matching.
+Task:
+Create a table employees with the following columns:
+id (INT, PRIMARY KEY, AUTO_INCREMENT)
+name (VARCHAR(50))
+department (VARCHAR(50))
+email (VARCHAR(100))
+phone (VARCHAR(15))
+ Insert at least 10 records into the employees table.
+Write queries to:
+ Find all employees whose name starts with 'A'.
+ Find employees whose email contains 'gmail'.
+ Find employees whose phone number ends with '123'.
+ Find employees whose department name contains 'tech' anywhere in the word.
+ Find employees whose name has exactly five letters.
+ Find employees whose name has 'n' as the second letter.
+ Find employees whose email starts with any character but ends with 'com'.
+ Find employees whose phone number has '7' as the third digit.
+
+mysql> create database assignment;
+Query OK, 1 row affected (0.05 sec)
+mysql> use assignment;
+Database changed
+ create table employee ( id int primary key , name varchar(50), deoartment varchar(50), email varchar (100), phone varchar (15));
+Query OK, 0 rows affected (0.06 sec)
+
+// entries 
+
+mysql> insert into  employee values ( 1, "garima" , "It ", "garima@gmail.com " , "6543131" );
+Query OK, 1 row affected (0.02 sec)
+mysql> insert into  employee values ( 2, "Little" , "It ", "Little@gmail.com " , "656563313" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  employee values ( 3, "aastha" , "tech ", "aastha@gmail.net " , "65889893313" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  employee values ( 4, "sonia" , "tech ", "sonia@gmail.com " , "658898687465" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  employee values ( 5, "animesh" , "sales ", "animesh@gmail.com " , "65889868123" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  employee values ( 6, "anshika" , "marketing", "anshika@gmail.net " , "657868123" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  employee values ( 7, "gaurav" , "sales", "gaurav@gmail.com " , "657268123" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  employee values ( 8, "sejall" , "finance", "sejal@gmail.com" , "6572623" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  employee values ( 9, "janvi" , "Logytech", "janvi@gmail.com" , "65726235561" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  employee values ( 10, "shreya" , "LIFItechnology", "shreya@gmail.com" , "657561" );
+Query OK, 1 row affected (0.00 sec)
+// table
+
+
+mysql> select * from employee;
++----+---------+----------------+--------------------+--------------+
+| id | name    | deoartment     | email              | phone        |
++----+---------+----------------+--------------------+--------------+
+|  1 | garima  | It             | garima@gmail.com   | 6543131      |
+|  2 | Little  | It             | Little@gmail.com   | 656563313    |
+|  3 | aastha  | tech           | aastha@gmail.net   | 65889893313  |
+|  4 | sonia   | tech           | sonia@gmail.com    | 658898687465 |
+|  5 | animesh | sales          | animesh@gmail.com  | 65889868123  |
+|  6 | anshika | marketing      | anshika@gmail.net  | 657868123    |
+|  7 | gaurav  | sales          | gaurav@gmail.com   | 657268123    |
+|  8 | sejall  | finance        | sejal@gmail.com    | 6572623      |
+|  9 | janvi   | Logytech       | janvi@gmail.com    | 65726235561  |
+| 10 | shreya  | LIFItechnology | shreya@gmail.com   | 657561       |
++----+---------+----------------+--------------------+--------------+
+10 rows in set (0.00 sec)
+
+select name from employee  where  name Like 'A%';
++---------+
+| name    |
++---------+
+| aastha  |
+| animesh |
+| anshika |
++---------+
+3 rows in set (0.01 sec)
+
+
+
+ select email from employee  where  email Like '%gmail%';
++--------------------+
+| email              |
++--------------------+
+| garima@gmail.com   |
+| Little@gmail.com   |
+| aastha@gmail.net   |
+| sonia@gmail.com    |
+| animesh@gmail.com  |
+| anshika@gmail.net  |
+| gaurav@gmail.com   |
+| sejal@gmail.com    |
+| janvi@gmail.com    |
+| shreya@gmail.com   |
++--------------------+
+
+
+mysql> select phone from employee  where  phone Like '%123';
++-------------+
+| phone       |
++-------------+
+| 65889868123 |
+| 657868123   |
+| 657268123   |
++-------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select deoartment from employee where deoartment Like "%tech%";
++----------------+
+| deoartment     |
++----------------+
+| tech           |
+| tech           |
+| Logytech       |
+| LIFItechnology |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> select name from employee where name Like "_____";
++-------+
+| name  |
++-------+
+| sonia |
+| janvi |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select name from employee where name Like "_N%";
++---------+
+| name    |
++---------+
+| animesh |
+| anshika |
++---------+
+2 rows in set (0.00 sec)
+ select name
+    -> from employee
+    -> where trim(email) LIKE "%com";
++---------+
+| name    |
++---------+
+| garima  |
+| Little  |
+| sonia   |
+| animesh |
+| gaurav  |
+| sejall  |
+| janvi   |
+| shreya  |
++---------+
+8 rows in set (0.00 sec)
+
+
+mysql> select phone from employee where phone LIKE "__7%";
++-------------+
+| phone       |
++-------------+
+| 657868123   |
+| 657268123   |
+| 6572623     |
+| 65726235561 |
+| 657561      |
++-------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
