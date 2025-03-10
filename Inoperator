@@ -1,0 +1,108 @@
+Using IN with Text Values
+Objective: Retrieve records based on a list of specific text values.
+Task:
+Create a table customers with the following columns:
+customer_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+customer_name (VARCHAR(50))
+city (VARCHAR(50))
+membership_type (VARCHAR(20))
+Insert at least 10 customer records into the customers table.
+Write queries to:
+Find customers who are from cities IN ('New York', 'Los Angeles', 'Chicago').
+Find customers whose membership_type is IN ('Gold', 'Platinum', 'Silver').
+Find customers whose name is IN ('Alice', 'John', 'Michael').
+mysql> use assignment
+Database changed
+mysql> create table  customers  ( customer_id int primary key,  customer name varchar (50),  city  varchar (50), membership_type varchar(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name varchar (50),  city  varchar (50), membership_type varchar(50))' at line 1
+mysql> create table  customers  ( customer_id int primary key,  customer_name varchar (50),  city  varchar (50), membership_type varchar(50));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into customers value ( 1 , "alice", "newyork","gold");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 2 , "garima", "india","platinum");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 3 , "albert", "newyork","silver");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 4 , "john", "chicago","gold");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 5 , "harry", "chicago","platinum");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customers value ( 6 , "michael", "losangeles","gold");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 7 , "shraddha", "india","ruby");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customers value ( 8 , "canny", "newzeland","ruby");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customers value ( 9 , "abc", "losangeles","gold");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 10 , "xyz", "newyoek","gold"); ;
+Query OK, 1 row affected (0.01 sec)
+
+ERROR:
+No query specified
+
+mysql> insert into customers value ( 10 , "xyz", "newyoek","gold");
+ERROR 1062 (23000): Duplicate entry '10' for key 'customers.PRIMARY'
+mysql> select * from customers;
++-------------+---------------+------------+-----------------+
+| customer_id | customer_name | city       | membership_type |
++-------------+---------------+------------+-----------------+
+|           1 | alice         | newyork    | gold            |
+|           2 | garima        | india      | platinum        |
+|           3 | albert        | newyork    | silver          |
+|           4 | john          | chicago    | gold            |
+|           5 | harry         | chicago    | platinum        |
+|           6 | michael       | losangeles | gold            |
+|           7 | shraddha      | india      | ruby            |
+|           8 | canny         | newzeland  | ruby            |
+|           9 | abc           | losangeles | gold            |
+|          10 | xyz           | newyoek    | gold            |
++-------------+---------------+------------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql>
+ select * from customers where city in ('newyork', 'losangeles', 'Chicago');
++-------------+---------------+------------+-----------------+
+| customer_id | customer_name | city       | membership_type |
++-------------+---------------+------------+-----------------+
+|           1 | alice         | newyork    | gold            |
+|           3 | albert        | newyork    | silver          |
+|           4 | john          | chicago    | gold            |
+|           5 | harry         | chicago    | platinum        |
+|           6 | michael       | losangeles | gold            |
+|           9 | abc           | losangeles | gold            |
++-------------+---------------+------------+-----------------+
+6 rows in set (0.00 sec)
+mysql> select * from customers where membership_type in ('gold', 'platinum', 'silver');
++-------------+---------------+------------+-----------------+
+| customer_id | customer_name | city       | membership_type |
++-------------+---------------+------------+-----------------+
+|           1 | alice         | newyork    | gold            |
+|           2 | garima        | india      | platinum        |
+|           3 | albert        | newyork    | silver          |
+|           4 | john          | chicago    | gold            |
+|           5 | harry         | chicago    | platinum        |
+|           6 | michael       | losangeles | gold            |
+|           9 | abc           | losangeles | gold            |
+|          10 | xyz           | newyoek    | gold            |
++-------------+---------------+------------+-----------------+
+mysql> select * from customers where customer_name in ('alice', 'john', 'michael');
++-------------+---------------+------------+-----------------+
+| customer_id | customer_name | city       | membership_type |
++-------------+---------------+------------+-----------------+
+|           1 | alice         | newyork    | gold            |
+|           4 | john          | chicago    | gold            |
+|           6 | michael       | losangeles | gold            |
++-------------+---------------+------------+-----------------+
+3 rows in set (0.00 sec)
+
