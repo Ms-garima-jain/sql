@@ -1,0 +1,143 @@
+Create a table employees with the following columns:
+
+id (INT, PRIMARY KEY, AUTO_INCREMENT)
+name (VARCHAR(50))
+age (INT)
+salary (DECIMAL(10,2))
+department (VARCHAR(50))
+Insert at least 10 records into the employees table.
+Write queries to:
+Find employees whose age is between 25 and 40.
+Find employees whose salary is between 30,000 and 80,000.
+Find employees who are between 30 and 50 years old and work in the "IT" department.
+Find employees whose salary is between 40,000 and 90,000 AND age is between 30 and 50.
+Find employees who do NOT have a salary between 25,000 and 60,000.
+Find employees whose age is between 22 and 35 OR salary is between 50,000 and 1,00,000.
+
+
+
+mysql> use assignment;
+
+Database changed
+mysql> create table Employee3 ( is int primary key , name  varchar (50), age int , salary decimal (10, 2 ), department varchar (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'is int primary key , name  varchar (50), age int , salary decimal (10, 2 ), depa' at line 1
+mysql> create table Employee3 ( id int primary key , name  varchar (50), age int , salary decimal (10, 2 ), department v
+archar (50));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into Employee3 value ( 1 , "garima" , 25, 25000, "it");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee3 value ( 2, "little" , 30, 50000, "it");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee3 value ( 3, "shreya" , 40, 80000, "sales");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee3 value ( 4, "ram" , 48, 90000, "it");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee3 value ( 5, "sita" , 49, 89211, "finance");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee3 value ( 6, "zoya" , 25, 10000, "management");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee3 value ( 7, "gurav" , 20, 9000, "management");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee3 value ( 8, "varsha" , 23, 90000, "it");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee3 value ( 9, "vanshika" , 24, 100000, "sales");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee3 value ( 10, "ansh" , 25, 50000, "management");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> selct * from Employee3
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from Employee3' at line 1
+mysql> select * from Employee3;
++----+----------+------+-----------+------------+
+| id | name     | age  | salary    | department |
++----+----------+------+-----------+------------+
+|  1 | garima   |   25 |  25000.00 | it         |
+|  2 | little   |   30 |  50000.00 | it         |
+|  3 | shreya   |   40 |  80000.00 | sales      |
+|  4 | ram      |   48 |  90000.00 | it         |
+|  5 | sita     |   49 |  89211.00 | finance    |
+|  6 | zoya     |   25 |  10000.00 | management |
+|  7 | gurav    |   20 |   9000.00 | management |
+|  8 | varsha   |   23 |  90000.00 | it         |
+|  9 | vanshika |   24 | 100000.00 | sales      |
+| 10 | ansh     |   25 |  50000.00 | management |
++----+----------+------+-----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from Employee3 where age between 25 and 40;
++----+--------+------+----------+------------+
+| id | name   | age  | salary   | department |
++----+--------+------+----------+------------+
+|  1 | garima |   25 | 25000.00 | it         |
+|  2 | little |   30 | 50000.00 | it         |
+|  3 | shreya |   40 | 80000.00 | sales      |
+|  6 | zoya   |   25 | 10000.00 | management |
+| 10 | ansh   |   25 | 50000.00 | management |
++----+--------+------+----------+------------+
+5 rows in set (0.01 sec)
+mysql> select * from Employee3 where salary between 30000 and 80000;
++----+--------+------+----------+------------+
+| id | name   | age  | salary   | department |
++----+--------+------+----------+------------+
+|  2 | little |   30 | 50000.00 | it         |
+|  3 | shreya |   40 | 80000.00 | sales      |
+| 10 | ansh   |   25 | 50000.00 | management |
++----+--------+------+----------+------------+
+3 rows in set (0.00 sec)
+mysql> select * from Employee3 where age between 30 and 50 and department like "it";
++----+--------+------+----------+------------+
+| id | name   | age  | salary   | department |
++----+--------+------+----------+------------+
+|  2 | little |   30 | 50000.00 | it         |
+|  4 | ram    |   48 | 90000.00 | it         |
++----+--------+------+----------+------------+
+2 rows in set (0.01 sec)
+mysql> select * from Employee3 where salary between 40000 and 90000 and age between 30 and 50;
++----+--------+------+----------+------------+
+| id | name   | age  | salary   | department |
++----+--------+------+----------+------------+
+|  2 | little |   30 | 50000.00 | it         |
+|  3 | shreya |   40 | 80000.00 | sales      |
+|  4 | ram    |   48 | 90000.00 | it         |
+|  5 | sita   |   49 | 89211.00 | finance    |
++----+--------+------+----------+------------+
+4 rows in set (0.00 sec)
+mysql> select * from Employee3 where salary not  between  25000 and 60000;
++----+----------+------+-----------+------------+
+| id | name     | age  | salary    | department |
++----+----------+------+-----------+------------+
+|  3 | shreya   |   40 |  80000.00 | sales      |
+|  4 | ram      |   48 |  90000.00 | it         |
+|  5 | sita     |   49 |  89211.00 | finance    |
+|  6 | zoya     |   25 |  10000.00 | management |
+|  7 | gurav    |   20 |   9000.00 | management |
+|  8 | varsha   |   23 |  90000.00 | it         |
+|  9 | vanshika |   24 | 100000.00 | sales      |
++----+----------+------+-----------+------------+
+7 rows in set (0.00 sec)
+mysql> select * from Employee3 where (age   between  25 and 30) or (salary between 50000 and 100000);
++----+----------+------+-----------+------------+
+| id | name     | age  | salary    | department |
++----+----------+------+-----------+------------+
+|  1 | garima   |   25 |  25000.00 | it         |
+|  2 | little   |   30 |  50000.00 | it         |
+|  3 | shreya   |   40 |  80000.00 | sales      |
+|  4 | ram      |   48 |  90000.00 | it         |
+|  5 | sita     |   49 |  89211.00 | finance    |
+|  6 | zoya     |   25 |  10000.00 | management |
+|  8 | varsha   |   23 |  90000.00 | it         |
+|  9 | vanshika |   24 | 100000.00 | sales      |
+| 10 | ansh     |   25 |  50000.00 | management |
++----+----------+------+-----------+------------+
+9 rows in set (0.00 sec)
