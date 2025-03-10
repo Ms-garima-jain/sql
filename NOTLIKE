@@ -1,0 +1,164 @@
+Case Sensitivity & NOT LIKE
+Objective: Learn how MySQL handles case sensitivity and negation with LIKE.
+Task:
+Write queries to:
+Find employees whose name is NOT starting with 'J'.
+Find employees who do not work in the 'HR' department.
+Find employees whose email does not contain 'yahoo'.
+Find employees whose phone does not start with '9'.
+Find employees whose name starts with 'S' and email contains 'outlook'.
+
+Find employees who work in 'Sales' OR 'Marketing' and their phone number ends with '789'.
+
+Find employees whose name contains 'an' and email does not contain 'hotmail'.
+
+Find employees whose phone starts with '98' OR contains '55'.
+
+
+create table Employee1 ( id int , name varchar (50), department varchar (100), email varchar(50) , phone varchar (50));
+Query OK, 0 rows affected (0.06 sec)
+mysql> desc Employee1
+    -> ;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int          | YES  |     | NULL    |       |
+| name       | varchar(50)  | YES  |     | NULL    |       |
+| department | varchar(100) | YES  |     | NULL    |       |
+| email      | varchar(50)  | YES  |     | NULL    |       |
+| phone      | varchar(50)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in 
+set (0.03 sec)
+
+mysql> insert into Employee1 value ( 1 , "janvi " , "sales " , "janvi@gmail.com " , "686546" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee1 value ( 2 , "jaya " , "HR " , "janvi@gmail.com " , "6232106546" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee1 value ( 3 , "sejal " , "marketing " , "janvi@yahoo.com " , "53466546" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee1 value ( 4 , "sweta " , "finance" , "sweta@yahoo.com " , "953466546" ););
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into Employee1 value ( 5 , "kajal " , "sales" , "kajal@gmail.com " , "9541266546" );
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into Employee1 value ( 6 , "swasti" , "marketing" , "kajal@outlook.com " , "9266546" );
+Query OK, 1 row affected (0.01 sec)
+ select * from Employee1
+    -> ;
++------+--------+------------+--------------------+------------+
+| id   | name   | department | email              | phone      |
++------+--------+------------+--------------------+------------+
+|    1 | janvi  | sales      | janvi@gmail.com    | 686546     |
+|    2 | jaya   | HR         | janvi@gmail.com    | 6232106546 |
+|    3 | sejal  | marketing  | janvi@yahoo.com    | 53466546   |
+|    4 | sweta  | finance    | sweta@yahoo.com    | 953466546  |
+|    5 | kajal  | sales      | kajal@gmail.com    | 9541266546 |
+|    6 | swasti | marketing  | kajal@outlook.com  | 9266546    |
++------+--------+------------+--------------------+------------+
+6 rows in set (0.00 sec)
+ select * from Employee1 where name not Like"j%";
++------+--------+------------+--------------------+------------+
+| id   | name   | department | email              | phone      |
++------+--------+------------+--------------------+------------+
+|    3 | sejal  | marketing  | janvi@yahoo.com    | 53466546   |
+|    4 | sweta  | finance    | sweta@yahoo.com    | 953466546  |
+|    5 | kajal  | sales      | kajal@gmail.com    | 9541266546 |
+|    6 | swasti | marketing  | kajal@outlook.com  | 9266546    |
++------+--------+------------+--------------------+------------+
+4 rows in set (0.00 sec)
+mysql> select * from Employee1 where department not Like"%HR%";
++------+--------+------------+--------------------+------------+
+| id   | name   | department | email              | phone      |
++------+--------+------------+--------------------+------------+
+|    1 | janvi  | sales      | janvi@gmail.com    | 686546     |
+|    3 | sejal  | marketing  | janvi@yahoo.com    | 53466546   |
+|    4 | sweta  | finance    | sweta@yahoo.com    | 953466546  |
+|    5 | kajal  | sales      | kajal@gmail.com    | 9541266546 |
+|    6 | swasti | marketing  | kajal@outlook.com  | 9266546    |
++------+--------+------------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Employee1 where  email not LIke"%yahoo%";
++------+--------+------------+--------------------+------------+
+| id   | name   | department | email              | phone      |
++------+--------+------------+--------------------+------------+
+|    1 | janvi  | sales      | janvi@gmail.com    | 686546     |
+|    2 | jaya   | HR         | janvi@gmail.com    | 6232106546 |
+|    5 | kajal  | sales      | kajal@gmail.com    | 9541266546 |
+|    6 | swasti | marketing  | kajal@outlook.com  | 9266546    |
++------+--------+------------+--------------------+------------+
+4 rows in set (0.00 sec)
+mysql> select * from Employee1 where  phone not LIke"9%";
++------+--------+------------+------------------+------------+
+| id   | name   | department | email            | phone      |
++------+--------+------------+------------------+------------+
+|    1 | janvi  | sales      | janvi@gmail.com  | 686546     |
+|    2 | jaya   | HR         | janvi@gmail.com  | 6232106546 |
+|    3 | sejal  | marketing  | janvi@yahoo.com  | 53466546   |
++------+--------+------------+------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Employee1 where   name like "s%"  and email like "%outlook%";
++------+--------+------------+--------------------+---------+
+| id   | name   | department | email              | phone   |
++------+--------+------------+--------------------+---------+
+|    6 | swasti | marketing  | kajal@outlook.com  | 9266546 |
++------+--------+------------+--------------------+---------+
+1 row in set (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee1 values ( 8 , "anjali" , "finance", "anjali@gmail.com","32323789");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee1 values ( 9 , "zoya" , "hr", "zoya@gmail.com","981465455");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee1 values ( 10 , "shelly" , "finance", "shelly@gmail.com","98145500455");
+Query OK, 1 row affected (0.01 sec)
+
+ select * from Employee1
+    -> ;
++------+--------+------------+--------------------+-------------+
+| id   | name   | department | email              | phone       |
++------+--------+------------+--------------------+-------------+
+|    1 | janvi  | sales      | janvi@gmail.com    | 686546      |
+|    2 | jaya   | HR         | janvi@gmail.com    | 6232106546  |
+|    3 | sejal  | marketing  | janvi@yahoo.com    | 53466546    |
+|    4 | sweta  | finance    | sweta@yahoo.com    | 953466546   |
+|    5 | kajal  | sales      | kajal@gmail.com    | 9541266546  |
+|    6 | swasti | marketing  | kajal@outlook.com  | 9266546     |
+|    7 | fayaz  | sales      | fayaz@gmail.com    | 6534313789  |
+|    8 | anjali | finance    | anjali@gmail.com   | 32323789    |
+|    9 | zoya   | hr         | zoya@gmail.com     | 981465455   |
+|   10 | shelly | finance    | shelly@gmail.com   | 98145500455 |
++------+--------+------------+--------------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from Employee1  where (department like "sales" OR department like "marketing" ) And phone like "%789";
++------+-------+------------+-----------------+------------+
+| id   | name  | department | email           | phone      |
++------+-------+------------+-----------------+------------+
+|    7 | fayaz | sales      | fayaz@gmail.com | 6534313789 |
++------+-------+------------+-----------------+------------+
+1 row in set (0.00 sec)
+
+ select * from Employee1  where (name  like "%an%"  ) And email not  like "hotmail";
++------+--------+------------+------------------+----------+
+| id   | name   | department | email            | phone    |
++------+--------+------------+------------------+----------+
+|    1 | janvi  | sales      | janvi@gmail.com  | 686546   |
+|    8 | anjali | finance    | anjali@gmail.com | 32323789 |
++------+--------+------------+------------------+----------+
+2 rows in set (0.00 sec)
+
+ select * from Employee1 where (phone like "98%" or phone like "%55%");
++------+--------+------------+------------------+-------------+
+| id   | name   | department | email            | phone       |
++------+--------+------------+------------------+-------------+
+|    9 | zoya   | hr         | zoya@gmail.com   | 981465455   |
+|   10 | shelly | finance    | shelly@gmail.com | 98145500455 |
++------+--------+------------+------------------+-------------+
+2 rows in set (0.00 sec)
