@@ -1,0 +1,168 @@
+6.
+Create a table employees with the following columns:
+id (INT, PRIMARY KEY, AUTO_INCREMENT)
+name (VARCHAR(50))
+age (INT)
+salary (DECIMAL(10,2))
+department (VARCHAR(50))
+Insert at least 10 records into the employees table.
+Write queries to:
+Find employees whose age is IN (25, 30, 35, 40, 45).
+Find employees whose salary is IN (30000, 50000, 70000, 100000).
+Find employees whose department is IN ('IT', 'HR', 'Sales').
+Find employees whose age is NOT IN (22, 25, 28, 30).
+Find employees whose salary is NOT IN (45000, 60000, 75000).
+Find employees whose department is NOT IN ('Marketing', 'Finance').
+
+------------------------------------------------------------------------
+
+
+mysql> use assignment
+Database changed
+mysql> show table Employee5
+    -> ;
+	mysql> create table Employee6 ( id int primary key , name varchar(50), age int, salary  Decimal(10,2) , department varch
+ar(50));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc Employee6
+    -> ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | NO   | PRI | NULL    |       |
+| name       | varchar(50)   | YES  |     | NULL    |       |
+| age        | int           | YES  |     | NULL    |       |
+| salary     | decimal(10,2) | YES  |     | NULL    |       |
+| department | varchar(50)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+mysql> insert into Employee6 values ( 1 , "garima", 25, 50000, "sales");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee6 values ( 2 , "Little", 30, 30000, "hr");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee6 values ( 3 , "bhomika", 35, 70000, "hr");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee6 values ( 4 , "ananya", 40, 100000, "it");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee6 values ( 5 , "abc", 22, 10000, "finance");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee6 values ( 6 , "xyz", 228, 45000, "hr");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee6 values ( 7 , "ajay", 30, 75000 "sales");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"sales")' at line 1
+mysql> insert into Employee6 values ( 7 , "ajay", 30, 75000 ,"sales");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee6 values ( 8 , "sujata", 48, 150000 ,"marketing");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee6 values ( 9 , "sonam", 35, 50000 ,"it");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee6 values ( 10 , "lado", 21, 1000000 ,"it");
+Query OK, 1 row affected (0.01 sec)
+mysql> select * from Employee6;
++----+---------+------+------------+------------+
+| id | name    | age  | salary     | department |
++----+---------+------+------------+------------+
+|  1 | garima  |   25 |   50000.00 | sales      |
+|  2 | Little  |   30 |   30000.00 | hr         |
+|  3 | bhomika |   35 |   70000.00 | hr         |
+|  4 | ananya  |   40 |  100000.00 | it         |
+|  5 | abc     |   22 |   10000.00 | finance    |
+|  6 | xyz     |  228 |   45000.00 | hr         |
+|  7 | ajay    |   30 |   75000.00 | sales      |
+|  8 | sujata  |   48 |  150000.00 | marketing  |
+|  9 | sonam   |   35 |   50000.00 | it         |
+| 10 | lado    |   21 | 1000000.00 | it         |
++----+---------+------+------------+------------+
+10 rows in set (0.00 sec)
+mysql> select * from Employee6  where age in (25, 30,35,40, 45 );
++----+---------+------+-----------+------------+
+| id | name    | age  | salary    | department |
++----+---------+------+-----------+------------+
+|  1 | garima  |   25 |  50000.00 | sales      |
+|  2 | Little  |   30 |  30000.00 | hr         |
+|  3 | bhomika |   35 |  70000.00 | hr         |
+|  4 | ananya  |   40 | 100000.00 | it         |
+|  7 | ajay    |   30 |  75000.00 | sales      |
+|  9 | sonam   |   35 |  50000.00 | it         |
++----+---------+------+-----------+------------+
+6 rows in set (0.00 sec)
+mysql> select * from Employee6  where salary in (30000, 50000,70000,100000 );
++----+---------+------+-----------+------------+
+| id | name    | age  | salary    | department |
++----+---------+------+-----------+------------+
+|  1 | garima  |   25 |  50000.00 | sales      |
+|  2 | Little  |   30 |  30000.00 | hr         |
+|  3 | bhomika |   35 |  70000.00 | hr         |
+|  4 | ananya  |   40 | 100000.00 | it         |
+|  9 | sonam   |   35 |  50000.00 | it         |
++----+---------+------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Employee6  where department in ("it","Hr" ,"Sales" );
++----+---------+------+------------+------------+
+| id | name    | age  | salary     | department |
++----+---------+------+------------+------------+
+|  1 | garima  |   25 |   50000.00 | sales      |
+|  2 | Little  |   30 |   30000.00 | hr         |
+|  3 | bhomika |   35 |   70000.00 | hr         |
+|  4 | ananya  |   40 |  100000.00 | it         |
+|  6 | xyz     |  228 |   45000.00 | hr         |
+|  7 | ajay    |   30 |   75000.00 | sales      |
+|  9 | sonam   |   35 |   50000.00 | it         |
+| 10 | lado    |   21 | 1000000.00 | it         |
++----+---------+------+------------+------------+
+8 rows in set (0.00 sec)
+select  name  from Employee6 where age  NOT IN (22, 25, 28, 30);
++---------+
+| name    |
++---------+
+| bhomika |
+| ananya  |
+| xyz     |
+| sujata  |
+| sonam   |
+| lado    |
++---------+
+6 rows in set (0.00 sec)
+ select  name  from Employee6 where salary  NOT IN (45000, 60000, 75000);
++---------+
+| name    |
++---------+
+| garima  |
+| Little  |
+| bhomika |
+| ananya  |
+| abc     |
+| sujata  |
+| sonam   |
+| lado    |
++---------+
+8 rows in set (0.00 sec)
+select  name  from Employee6 where department  NOT IN ("marketing", "finance");
++---------+
+| name    |
++---------+
+| garima  |
+| Little  |
+| bhomika |
+| ananya  |
+| xyz     |
+| ajay    |
+| sonam   |
+| lado    |
++---------+
+8 rows in set (0.00 sec)
+
+
+
