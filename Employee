@@ -1,0 +1,269 @@
+Employee Salary Analysis
+Use the following employees table to solve the questions below.
+
+NOTE:-use your friends names in the given table.
+Table: employees
+id	name	department	job_role	salary	hire_date
+1	Alice	HR	       Manager	       6000.00	2022-01-15
+2	Bob	HR		Recruiter	4000.00	2023-03-20
+3	Charlie	IT		Developer	5000.00	2022-07-25
+4	David	IT		Developer	5500.00	2021-12-05
+5	Eve	IT		Tester		4500.00	2023-06-10
+6	Frank	IT		Tester		4800.00	2023-09-12
+7	Grace	Finance		Analyst		5200.00	2021-11-18
+8	Hank	Finance		Analyst		5300.00	2022-04-30
+9	Ivy	Finance		Manager		7000.00	2023-08-14
+10	Jack	HR		Recruiter	4200.00	2022-10-05
+Questions
+Find the total number of employees in each department.
+Find the average salary of employees in each job role.
+Find the highest salary in the IT department.
+Find the lowest salary among all employees.
+	
+Find the total salary paid in each department.
+Find the job role that has the highest total salary payout.
+Find departments where the total salary exceeds 10,000.
+Find the department with the highest number of employees.
+NOTE:USE TABLE from QNO 1:Table: employees
+
+Find the total number of employees in each department and display only those departments having more than 2 employees. (GROUP BY + HAVING)
+Find the total salary paid in each department and display the results in descending order of total salary. (GROUP BY + ORDER BY)
+Find the job role that has the highest total salary payout, displaying only roles where total salary is above 10,000. (GROUP BY + HAVING + ORDER BY)
+Find the average salary of employees who joined after 2022, displaying only job roles where the average salary is above 4500. (WHERE + GROUP BY + HAVING)
+Find departments where the total salary exceeds 10,000 and order the results in ascending order of department name. (GROUP BY + HAVING + ORDER BY)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+use assignment;
+Database changed
+ create  table Employee8 ( id int , name varchar (50), department varchar (50), jobrole varchar (50),  salary  dec
+imal (10,2), hiredate date);
+Query OK, 0 rows affected (0.18 sec)
+desc Employee8;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | YES  |     | NULL    |       |
+| name       | varchar(50)   | YES  |     | NULL    |       |
+| department | varchar(50)   | YES  |     | NULL    |       |
+| jobrole    | varchar(50)   | YES  |     | NULL    |       |
+| salary     | decimal(10,2) | YES  |     | NULL    |       |
+| hiredate   | date          | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+1292 (22007): Incorrect date value: '2006' for column 'hiredate' at row 1
+mysql> insert into Employee8 values (1, "Alice", "HR", " Manager"        ,  6000.00,    '2022-01-15');
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> insert into Employee8 values (1, "Alice", "HR", " Manager"        ,  6000.00,    2022-01-15);
+ERROR 1292 (22007): Incorrect date value: '2006' for column 'hiredate' at row 1
+mysql> insert into Employee8 values (1, "Alice", "HR", " Manager"        ,  6000.00,    '2022-01-15');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee8 values (2  , "Bob",        "HR",           "Recruiter",    4000.00,        "2023-03-20");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee8 values (3, "CharlieIT",    "Developer",    5000.00,        "2022-07-25");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into Employee8 values (3, "CharlieIT","it",       "Developer",    5000.00,        "2022-07-25");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee8 values (4, "David", "IT","Developer",      5500.00, "2021-12-05");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee8 values (5, "Eve",  "IT",   "Tester",4500.00,"2023-06-10");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee8 values (6, "Frank", "IT"," Tester" ,4800.00        ,"2023-09-12");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee8 values (7  ,"Grace"        ,"Finance",             "Analyst        ",      5200.00 , "2021-
+11-18");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee8 values (8, "Hank","Finance","Analyst",5300.00,"2022-04-30");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee8 values (9, "Ivy",  "Finance", "Manager"    , 7000.00,"2023-08-14");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee8 values (10, "Jack","HR", "Recruiter",4200.00,"2022-10-05");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show Employee8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Employee8' at line 1
+mysql> select * from Employee8;
++------+-----------+------------+-----------+---------+------------+
+| id   | name      | department | jobrole   | salary  | hiredate   |
++------+-----------+------------+-----------+---------+------------+
+|    1 | Alice     | HR         |  Manager  | 6000.00 | 2022-01-15 |
+|    2 | Bob       | HR         | Recruiter | 4000.00 | 2023-03-20 |
+|    3 | CharlieIT | it         | Developer | 5000.00 | 2022-07-25 |
+|    4 | David     | IT         | Developer | 5500.00 | 2021-12-05 |
+|    5 | Eve       | IT         | Tester    | 4500.00 | 2023-06-10 |
+|    6 | Frank     | IT         |       Tester   | 4800.00 | 2023-09-12 |
+|    7 | Grace     | Finance    | Analyst         | 5200.00 | 2021-11-18 |
+|    8 | Hank      | Finance    | Analyst   | 5300.00 | 2022-04-30 |
+|    9 | Ivy       | Finance    | Manager   | 7000.00 | 2023-08-14 |
+|   10 | Jack      | HR         | Recruiter | 4200.00 | 2022-10-05 |
++------+-----------+------------+-----------+---------+------------+
+10 rows in set (0.00 sec)
+
+select department, COUNT(*) from Employee8 group by department;
++------------+----------+
+| department | COUNT(*) |
++------------+----------+
+| HR         |        3 |
+| it         |        4 |
+| Finance    |        3 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select department, avg (salary)from Employee8 group by department ;
++------------+--------------+
+| department | avg (salary) |
++------------+--------------+
+| HR         |  4733.333333 |
+| it         |  4950.000000 |
+| Finance    |  5833.333333 |
++------------+--------------+
+3 rows in set (0.00 sec)
+ select MAX(salary) from Employee8 where department="it";
++-------------+
+| MAX(salary) |
++-------------+
+|     5500.00 |
++-------------+
+1 row in set (0.03 sec)
+
+mysql> select Min(salary) from Employee8;
++-------------+
+| Min(salary) |
++-------------+
+|     4000.00 |
++-------------+
+1 row in set (0.00 sec)
+ select department , SUM(salary) from Employee8 group by department;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| HR         |    14200.00 |
+| it         |    19800.00 |
+| Finance    |    17500.00 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+ select * from Employee8 where salary=(select max(salary) from Employee8);
++------+------+------------+---------+---------+------------+
+| id   | name | department | jobrole | salary  | hiredate   |
++------+------+------------+---------+---------+------------+
+|    9 | Ivy  | Finance    | Manager | 7000.00 | 2023-08-14 |
++------+------+------------+---------+---------+------------+
+1 row in set (0.03 sec)
+
+mysql> select jobrole from Employee8 where salary=(select max(salary) from Employee8);
++---------+
+| jobrole |
++---------+
+| Manager |
++---------+
+^C
+mysql> select  name , Avg (salary) from employee8 group by name , hiredate having hiredate>'2022-01-01';
++-----------+--------------+
+| name      | Avg (salary) |
++-----------+--------------+
+| Alice     |  6000.000000 |
+| Bob       |  4000.000000 |
+| CharlieIT |  5000.000000 |
+| Eve       |  4500.000000 |
+| Frank     |  4800.000000 |
+| Hank      |  5300.000000 |
+| Ivy       |  7000.000000 |
+| Jack      |  4200.000000 |
++-----------+--------------+
+8 rows in set (0.00 sec)
+ select count(*) from employee8 where hiredate>'2023-01-01';
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+ select department , sum(salary) from employee8 group by department having sum(salary)>10000;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| HR         |    14200.00 |
+| it         |    19800.00 |
+| Finance    |    17500.00 |
++------------+-------------+
+3 rows in set (0.01 sec)
+
+SELECT department
+    -> FROM employee8
+    -> GROUP BY department
+    -> ORDER BY COUNT(*) DESC
+    -> LIMIT 1;
++------------+
+| department |
++------------+
+| it         |
++------------+
+1 row in set (0.01 sec)
+----------3---------------
+select department, count(*) from employee8 group by department having count(*)>2;
++------------+----------+
+| department | count(*) |
++------------+----------+
+| HR         |        3 |
+| it         |        4 |
+| Finance    |        3 |
++------------+----------+
+3 rows in set (0.00 sec)
+select department, sum(salary) from employee8 group by department order by sum( sa
+lary )desc;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| it         |    19800.00 |
+| Finance    |    17500.00 |
+| HR         |    14200.00 |
++------------+-------------+
+3 rows in set (0.00 sec)
+ SELECT jobrole, SUM(salary) AS total_salary
+    -> FROM employee8
+    -> GROUP BY jobrole
+    -> HAVING SUM(salary) > 10000
+    -> ORDER BY total_salary DESC;
++-----------+--------------+
+| jobrole   | total_salary |
++-----------+--------------+
+| Developer |     10500.00 |
++-----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select jobrole , avg(salary) as total from employee8 where hiredate>'2022-01-01' g
+roup by jobrole having avg(salary)>4500;
++-----------+-------------+
+| jobrole   | total       |
++-----------+-------------+
+|  Manager  | 6000.000000 |
+| Developer | 5000.000000 |
+|       Tester   | 4800.000000 |
+| Analyst   | 5300.000000 |
+| Manager   | 7000.000000 |
++-----------+-------------+
+ select department, sum(salary) as total  from employee8  group by department  havi
+ng  sum(salary)>10000 order by total ;
++------------+----------+
+| department | total    |
++------------+----------+
+| HR         | 14200.00 |
+| Finance    | 17500.00 |
+| it         | 19800.00 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+
+
+
+
