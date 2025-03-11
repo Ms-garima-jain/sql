@@ -1,0 +1,50 @@
+1.
+Create a table named Students with the following columns:
+
+StudentID (INT, Primary Key)
+Name (VARCHAR(50), NOT NULL)
+Age (INT, should be between 18 and 25)
+Marks (DECIMAL(5,2), should be between 0 and 100)
+Insert the following records and observe what happens:
+
+(101, 'Alice', 20, 85.5)
+(102, 'Bob', 17, 90.0) (This should fail due to Age constraint)
+(103, 'Charlie', 22, 105.0) (This should fail due to Marks constraint)
+(104, 'David', 24, 75.0)
+
+mysql> use assighnment;
+ERROR 1049 (42000): Unknown database 'assighnment'
+mysql> use assignment;
+Database changed
+mysql> create table students ( studentid int  primary key , name varchar(50) not null, age int  check (age >=18  and age<=25),marks decimal(5,2) check( mark
+s >=0 and marks <=100));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into students values ( 101, "alice", 20, 85.5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from students;
++-----------+-------+------+-------+
+| studentid | name  | age  | marks |
++-----------+-------+------+-------+
+|       101 | alice |   20 | 85.50 |
++-----------+-------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into students values ( 102, "bob", 17, 90.0);
+ERROR 3819 (HY000): Check constraint 'students_chk_1' is violated.
+mysql> insert into students values ( 103, "charlie", 22, 105.0);
+ERROR 3819 (HY000): Check constraint 'students_chk_2' is violated.
+mysql> insert into students values ( 104, "dabid", 24, 75);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from students;
++-----------+-------+------+-------+
+| studentid | name  | age  | marks |
++-----------+-------+------+-------+
+|       101 | alice |   20 | 85.50 |
+|       104 | dabid |   24 | 75.00 |
++-----------+-------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
