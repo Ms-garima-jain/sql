@@ -1,0 +1,77 @@
+ E-commerce Inventory
+Create a table products with columns: product_id, name, category, price, and stock.
+Insert 5 products into the table with different categories and stock levels.
+Reduce stock by 10 for all products in the "Electronics" category.
+Increase the price of all "Fashion" category products by 5%.
+
+mysql> use ecommerceinventory;
+Database changed
+mysql> create table products ( productid int , name varchar (50), category  varchar (50), price int , stock int );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into products values ( 1, "cream" , "fashion", 56, 5 );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into products values ( 2, "powder" , "fashion", 100, 50 );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into products values ( 3, "irom" , "electronics", 800, 50 );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into products values ( 4, "refrigrator" , "electronics", 80000, 10 );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into products values ( 5, "lipstick" , "fashion", 562, 100 );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from products;
++-----------+-------------+-------------+-------+-------+
+| productid | name        | category    | price | stock |
++-----------+-------------+-------------+-------+-------+
+|         1 | cream       | fashion     |    56 |     5 |
+|         2 | powder      | fashion     |   100 |    50 |
+|         3 | irom        | electronics |   800 |    50 |
+|         4 | refrigrator | electronics | 80000 |    10 |
+|         5 | lipstick    | fashion     |   562 |   100 |
++-----------+-------------+-------------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update products set stock =stock-10 where category ="electronics";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 'ecommerceinventory.employee' doesn't exist
+mysql> select * from products;
++-----------+-------------+-------------+-------+-------+
+| productid | name        | category    | price | stock |
++-----------+-------------+-------------+-------+-------+
+|         1 | cream       | fashion     |    56 |     5 |
+|         2 | powder      | fashion     |   100 |    50 |
+|         3 | irom        | electronics |   800 |    40 |
+|         4 | refrigrator | electronics | 80000 |     0 |
+|         5 | lipstick    | fashion     |   562 |   100 |
++-----------+-------------+-------------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update set price = price *1.10 where category ="fashion";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set price = price *1.10 where category ="fashion"' at line 1
+mysql> update set price = price *1.10 where category ="fashion";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set price = price *1.10 where category ="fashion"' at line 1
+mysql> update products set price = price *1.10 where category ="fashion";
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from products ;
++-----------+-------------+-------------+-------+-------+
+| productid | name        | category    | price | stock |
++-----------+-------------+-------------+-------+-------+
+|         1 | cream       | fashion     |    62 |     5 |
+|         2 | powder      | fashion     |   110 |    50 |
+|         3 | irom        | electronics |   800 |    40 |
+|         4 | refrigrator | electronics | 80000 |     0 |
+|         5 | lipstick    | fashion     |   618 |   100 |
++-----------+-------------+-------------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
