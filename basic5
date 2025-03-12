@@ -1,0 +1,73 @@
+Gym Membership System
+Create a table members with columns: member_id, name, membership_type, fees_paid, and joining_date.
+Insert 5 members into the table with different membership types and fees paid.
+Increase the fees paid by $50 for all "Gold" membership holders.
+Update the joining_date of the member named "Sophia Martinez" to 2024-04-01.
+
+mysql> create database gymmembership;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table member ( memberid int, name varchar (50), membershiptype varchar (50), feespaid int, joiningdate date);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into member values ( 1, "Sophia Martinez", "silver", '2024-04-01');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into member values ( 1, "Sophia Martinez", "silver", 5000,'2024-04-01');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into member values ( 2, "garima", "gold", 3000,'2025-04-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into member values ( 3, "janvi", "gold", 2000,'2025-05-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into member values ( 4, "bhoomika", "premium", 5000,'2022-05-01');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into member values ( 5, "preeti", "premium", 6000,'2021-05-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from member;
++----------+-----------------+----------------+----------+-------------+
+| memberid | name            | membershiptype | feespaid | joiningdate |
++----------+-----------------+----------------+----------+-------------+
+|        1 | Sophia Martinez | silver         |     5000 | 2024-04-01  |
+|        2 | garima          | gold           |     3000 | 2025-04-01  |
+|        3 | janvi           | gold           |     2000 | 2025-05-01  |
+|        4 | bhoomika        | premium        |     5000 | 2022-05-01  |
+|        5 | preeti          | premium        |     6000 | 2021-05-01  |
++----------+-----------------+----------------+----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql>
+ update member set feespaid = feespaid+50 where membershiptype="gold";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from member;
++----------+-----------------+----------------+----------+-------------+
+| memberid | name            | membershiptype | feespaid | joiningdate |
++----------+-----------------+----------------+----------+-------------+
+|        1 | Sophia Martinez | silver         |     5000 | 2024-04-01  |
+|        2 | garima          | gold           |     3050 | 2025-04-01  |
+|        3 | janvi           | gold           |     2050 | 2025-05-01  |
+|        4 | bhoomika        | premium        |     5000 | 2022-05-01  |
+|        5 | preeti          | premium        |     6000 | 2021-05-01  |
++----------+-----------------+----------------+----------+-------------+
+5 rows in set (0.00 sec)
+1146 (42S02): Table 'banking.mamber' doesn't exist
+mysql> update member set joiningdate='2024-04-01' where name = 'sophia martinez';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from member;
++----------+-----------------+----------------+----------+-------------+
+| memberid | name            | membershiptype | feespaid | joiningdate |
++----------+-----------------+----------------+----------+-------------+
+|        1 | Sophia Martinez | silver         |     5000 | 2024-04-01  |
+|        2 | garima          | gold           |     3050 | 2025-04-01  |
+|        3 | janvi           | gold           |     2050 | 2025-05-01  |
+|        4 | bhoomika        | premium        |     5000 | 2022-05-01  |
+|        5 | preeti          | premium        |     6000 | 2021-05-01  |
++----------+-----------------+----------------+----------+-------------+
+5 rows in set (0.00 sec)
