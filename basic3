@@ -1,0 +1,73 @@
+Banking System
+Create a table customers with columns: customer_id, name, balance, and account_type.
+Insert 5 customers into the table with different balances and account types.
+Increase the balance by 5% for all "Savings" account holders.
+Deduct $100 from all customers whose balance is above $5000.
+use banking;
+Database changed
+create table customers1 ( customerid int, name varchar (50), balance  double , accounttype varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into customers value ( 2, "neelima", 5000, "current");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 1, "garima", 50000, "current");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customers value ( 3, "bhoomika", 60000, "saving");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers value ( 4, "urmila", 70000, "saving");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customers value ( 5, "jatin", 80000, "saving");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from cuttomers;
+ERROR 1146 (42S02): Table 'banking.cuttomers' doesn't exist
+mysql> select * from customers1;
+Empty set (0.00 sec)
+
+mysql> select * from customers;
+
+mysql> select * from customers;
++------------+----------+---------+-------------+
+| customerid | name     | balance | accounttype |
++------------+----------+---------+-------------+
+|          2 | neelima  |    5000 | current     |
+|          1 | garima   |   50000 | current     |
+|          3 | bhoomika |   60000 | saving      |
+|          4 | urmila   |   70000 | saving      |
+|          5 | jatin    |   80000 | saving      |
++------------+----------+---------+-------------+
+5 rows in set (0.00 sec)
+146 (42S02): Table 'banking.customer' doesn't exist
+mysql> update customers set balance = balance *1.05  where accounttype="saving";
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from customers;
++------------+----------+---------+-------------+
+| customerid | name     | balance | accounttype |
++------------+----------+---------+-------------+
+|          2 | neelima  |    5000 | current     |
+|          1 | garima   |   50000 | current     |
+|          3 | bhoomika |   63000 | saving      |
+|          4 | urmila   |   73500 | saving      |
+|          5 | jatin    |   84000 | saving      |
++------------+----------+---------+-------------+
+5 rows in set (0.00 sec)
+ update customers set balance = balance-10 where balance>5000;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0	
+ select * from customers;
++------------+----------+---------+-------------+
+| customerid | name     | balance | accounttype |
++------------+----------+---------+-------------+
+|          2 | neelima  |    5000 | current     |
+|          1 | garima   |   49990 | current     |
+|          3 | bhoomika |   62990 | saving      |
+|          4 | urmila   |   73490 | saving      |
+|          5 | jatin    |   83990 | saving      |
++------------+----------+---------+-------------+
+5 rows in set (0.00 sec)
