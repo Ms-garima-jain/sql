@@ -1,0 +1,70 @@
+Online Food Delivery System
+Create a table orders with columns: order_id, customer_name, food_item, price, and order_status.
+Insert 5 orders into the table with different food items and prices.
+Increase the price by 10% for all "Pizza" orders.
+Change the order_status of the order placed by "David Wilson" to "Delivered".
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into orders value (1 , "david wilson" , "idli", 100, "pending");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders value (2 , "himanshi" , "pizza", 200, "pending");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders value (3 , "anshika" , "pizza", 300, "pending");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders value (4 , "captain bj" , "bhature", 300, "delivered");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders value (5 , "manish" , "bhature", 300, "delivered");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++---------+--------------+----------+-------+-------------+
+| orderid | customername | fooditem | price | orderstatus |
++---------+--------------+----------+-------+-------------+
+|       1 | david wilson | idli     |   100 | pending     |
+|       2 | himanshi     | pizza    |   200 | pending     |
+|       3 | anshika      | pizza    |   300 | pending     |
+|       4 | captain bj   | bhature  |   300 | delivered   |
+|       5 | manish       | bhature  |   300 | delivered   |
++---------+--------------+----------+-------+-------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> update fooddelivery set price = price*1.10 where fooditem="pizza";
+ERROR 1146 (42S02): Table 'fooddelivery.fooddelivery' doesn't exist
+mysql> update orders set price = price*1.10 where fooditem="pizza";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from orders;
++---------+--------------+----------+-------+-------------+
+| orderid | customername | fooditem | price | orderstatus |
++---------+--------------+----------+-------+-------------+
+|       1 | david wilson | idli     |   100 | pending     |
+|       2 | himanshi     | pizza    |   220 | pending     |
+|       3 | anshika      | pizza    |   330 | pending     |
+|       4 | captain bj   | bhature  |   300 | delivered   |
+|       5 | manish       | bhature  |   300 | delivered   |
++---------+--------------+----------+-------+-------------+
+5 rows in set (0.00 sec)
+update orders set orderstatus ="delivered" where customername ="david wilson";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from orders;
++---------+--------------+----------+-------+-------------+
+| orderid | customername | fooditem | price | orderstatus |
++---------+--------------+----------+-------+-------------+
+|       1 | david wilson | idli     |   100 | delivered   |
+|       2 | himanshi     | pizza    |   220 | pending     |
+|       3 | anshika      | pizza    |   330 | pending     |
+|       4 | captain bj   | bhature  |   300 | delivered   |
+|       5 | manish       | bhature  |   300 | delivered   |
++---------+--------------+----------+-------+-------------+
+5 rows in set (0.00 sec)
+
+
+
+
