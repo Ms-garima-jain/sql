@@ -1,0 +1,78 @@
+> 
+Employee Payroll System
+Create a table employees with columns: emp_id, name, department, salary, and hire_date.
+Insert 5 employees into the table with different departments and salaries.
+Increase the salary by 10% for employees hired before 2021.
+Change the department of the employee named "Michael Scott" to HR.
+
+
+
+
+
+create database payrollsystem;
+Query OK, 1 row affected (0.01 sec)
+ create  table employee ( empid int , name varchar (50), department varchar (100), salary decimal(10,2), hiredate
+date);
+Query OK, 0 rows affected (0.03 sec)
+ insert into employee values (1, "garima" , "it", 50000, '2025-03-01');
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into employee values (2, "bhoomika" , "it", 40000, '2025-02-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (3, "harshitas" , "it", 30000, '2025-03-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (4, "anjali" , "it", 32000, '2025-10-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (5, "ajay" , "it", 22000, '2025-11-01');
+Query OK, 1 row affected (0.01 sec)
+insert into employee values ( 6 , "Michael Scott" , "it" , 10000, '2020-11-02');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+---------------+------------+----------+------------+
+| empid | name          | department | salary   | hiredate   |
++-------+---------------+------------+----------+------------+
+|     1 | garima        | it         | 50000.00 | 2025-03-01 |
+|     2 | bhoomika      | it         | 40000.00 | 2025-02-01 |
+|     3 | harshitas     | it         | 30000.00 | 2025-03-01 |
+|     4 | anjali        | it         | 32000.00 | 2025-10-01 |
+|     5 | ajay          | it         | 22000.00 | 2025-11-01 |
+|     6 | Michael Scott | it         | 10000.00 | 2020-11-02 |
++-------+---------------+------------+----------+------------+
+6 rows in set (0.00 sec)
+update employee set salary = salary *1.10 where hiredate <'2021-01-01';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+---------------+------------+----------+------------+
+| empid | name          | department | salary   | hiredate   |
++-------+---------------+------------+----------+------------+
+|     1 | garima        | it         | 50000.00 | 2025-03-01 |
+|     2 | bhoomika      | it         | 40000.00 | 2025-02-01 |
+|     3 | harshitas     | it         | 30000.00 | 2025-03-01 |
+|     4 | anjali        | it         | 32000.00 | 2025-10-01 |
+|     5 | ajay          | it         | 22000.00 | 2025-11-01 |
+|     6 | Michael Scott | it         | 11000.00 | 2020-11-02 |
++-------+---------------+------------+----------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> update employee set department = "hr" where name = "michael scott";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+---------------+------------+----------+------------+
+| empid | name          | department | salary   | hiredate   |
++-------+---------------+------------+----------+------------+
+|     1 | garima        | it         | 50000.00 | 2025-03-01 |
+|     2 | bhoomika      | it         | 40000.00 | 2025-02-01 |
+|     3 | harshitas     | it         | 30000.00 | 2025-03-01 |
+|     4 | anjali        | it         | 32000.00 | 2025-10-01 |
+|     5 | ajay          | it         | 22000.00 | 2025-11-01 |
+|     6 | Michael Scott | hr         | 11000.00 | 2020-11-02 |
++-------+---------------+------------+----------+------------+
+6 rows in set (0.00 sec)
