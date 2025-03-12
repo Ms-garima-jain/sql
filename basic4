@@ -1,0 +1,66 @@
+Student Management System
+Create a table students with columns: student_id, name, department, marks, and admission_year.
+Insert 5 students into the table with different departments and marks.
+Increase the marks by 5 for all students in the "Computer Science" department.
+Update the admission year of the student named "Bob" to 2023.
+
+ create database  StudentManagementSystem;
+Query OK, 1 row affected (0.01 sec)
+ create table students ( studentid int , name varchar (50), department varchar (50),  marks int , admissionyear da
+te );
+Query OK, 0 rows affected (0.02 sec)
+ insert into  students  values (1, "bob ", "computerscience",50, '2022-01-01');
+Query OK, 1 row affected (0.00 sec)
+ insert into  students  values (2, "garima", "computerscience",100, '2023-01-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  students  values (3, "aman", "computerscience",80, '2003-12-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  students  values (4, "suvi", "accounts",90, '205-12-12');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  students  values (5, "sarla", "saheer",45, '2006-06-06');
+Query OK, 1 row affected (0.00 sec)
+select * from students;
++-----------+--------+-----------------+-------+---------------+
+| studentid | name   | department      | marks | admissionyear |
++-----------+--------+-----------------+-------+---------------+
+|         1 | bob    | computerscience |    50 | 2022-01-01    |
+|         2 | garima | computerscience |   100 | 2023-01-01    |
+|         3 | aman   | computerscience |    80 | 2003-12-01    |
+|         4 | suvi   | accounts        |    90 | 0205-12-12    |
+|         5 | sarla  | saheer          |    45 | 2006-06-06    |
++-----------+--------+-----------------+-------+---------------+
+5 rows in set (0.00 sec)
+
+update students set marks = marks+5 where department ="computerscience";
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from  students;
++-----------+--------+-----------------+-------+---------------+
+| studentid | name   | department      | marks | admissionyear |
++-----------+--------+-----------------+-------+---------------+
+|         1 | bob    | computerscience |    55 | 2022-01-01    |
+|         2 | garima | computerscience |   105 | 2023-01-01    |
+|         3 | aman   | computerscience |    85 | 2003-12-01    |
+|         4 | suvi   | accounts        |    90 | 0205-12-12    |
+|         5 | sarla  | saheer          |    45 | 2006-06-06    |
++-----------+--------+-----------------+-------+---------------+
+5 rows in set (0.00 sec)
+ update students set admissionyear='2023-01-01' where  name ='garima';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from students;
++-----------+--------+-----------------+-------+---------------+
+| studentid | name   | department      | marks | admissionyear |
++-----------+--------+-----------------+-------+---------------+
+|         1 | bob    | computerscience |    55 | 2022-01-01    |
+|         2 | garima | computerscience |   105 | 2023-01-01    |
+|         3 | aman   | computerscience |    85 | 2003-12-01    |
+|         4 | suvi   | accounts        |    90 | 0205-12-12    |
+|         5 | sarla  | saheer          |    45 | 2006-06-06    |
++-----------+--------+-----------------+-------+---------------+
+5 rows in set (0.00 sec)
