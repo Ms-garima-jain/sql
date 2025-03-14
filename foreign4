@@ -1,0 +1,136 @@
+A university wants to track students' exam results. If a student is deleted, their results should also be deleted.
+Tasks:
+Create a Students table:
+StudentID (PRIMARY KEY, AUTO_INCREMENT)
+StudentName (NOT NULL)
+Create an Exams table:
+ExamID (PRIMARY KEY, AUTO_INCREMENT)
+SubjectName (NOT NULL, UNIQUE)
+Create a Results table:
+ResultID (PRIMARY KEY, AUTO_INCREMENT)
+StudentID (FOREIGN key)
+ExamID (FOREIGN KEY)
+Score (NOT NULL, CHECK Score BETWEEN 0 AND 100)
+Insert sample data (at least 3 students, 3 exams, and 5 results).
+Delete a student and check if their results are removed automatically.
+Update an exam’s subject name and observe the effect.
+--------------------------------------------------------
+
+mysql> create database st;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use st;
+Database changed
+mysql>
+
+ create table student ( studentid int primary key auto_increment, studentname varchar(50) not null);
+Query OK, 0 rows affected (0.07 sec)
+insert into student (studentname ) values ( "garima");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student (studentname ) values ( "manav");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student (studentname ) values ( "radha");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student (studentname ) values ( "raja");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student (studentname ) values ( "sohail");
+Query OK, 1 row affected (0.01 sec)
+ create table exam ( examid int primary key  auto_increment,  subjectname varchar(50) not null unique);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into exam (subjectname ) values ("english");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into exam (subjectname ) values ("hindi");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into exam (subjectname ) values ("maths");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into exam (subjectname ) values ("physics");
+
+Query OK, 0 rows affected (0.10 sec)
+
+ CREATE TABLE Result (
+        StudentID INT,
+        ExamID INT,
+        ResultID INT AUTO_INCREMENT PRIMARY KEY,
+        Score INT NOT NULL CHECK (Score BETWEEN 0 AND 100),
+        FOREIGN KEY (StudentID) REFERENCES Student(StudentID) ON DELETE CASCADE,
+        FOREIGN KEY (ExamID) REFERENCES Exam(ExamID)
+    );
+Query OK, 0 rows affected (0.05 sec)
+
+ INSERT INTO result (StudentID, ExamID, Score) VALUES (1, 1, 50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO result (StudentID, ExamID, Score) VALUES (2, 2, 80);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO result (StudentID, ExamID, Score) VALUES (3, 3, 90);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO result (StudentID, ExamID, Score) VALUES (4, 4, 52);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO result (StudentID, ExamID, Score) VALUES (5, 1, 92);
+Query OK, 1 row affected (0.00 sec)
+ select * from student;
++-----------+-------------+
+| studentid | studentname |
++-----------+-------------+
+|         1 | garima      |
+|         2 | manav       |
+|         3 | radha       |
+|         4 | raja        |
+|         5 | sohail      |
++-----------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from exam;
++--------+-------------+
+| examid | subjectname |
++--------+-------------+
+|      1 | english     |
+|      2 | hindi       |
+|      3 | maths       |
+|      4 | physics     |
++--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++-----------+-------------+
+| studentid | studentname |
++-----------+-------------+
+|         2 | manav       |
+|         3 | radha       |
+|         4 | raja        |
+|         5 | sohail      |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from result;
++-----------+--------+----------+-------+
+| StudentID | ExamID | ResultID | Score |
++-----------+--------+----------+-------+
+|         2 |      2 |        2 |    80 |
+|         3 |      3 |        3 |    90 |
+|         4 |      4 |        4 |    52 |
+|         5 |      1 |        5 |    92 |
++-----------+--------+-----
+ update  exam set subjectname ="sanskrit" where subjectname="hindi";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0 select * from exam;
++--------+-------------+
+| examid | subjectname |
++--------+-------------+
+|      1 | english     |
+|      3 | maths       |
+|      4 | physics     |
+|      2 | sanskrit    |
++--------+-------------+
+4 rows in set (0.00 sec)
