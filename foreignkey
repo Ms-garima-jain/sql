@@ -17,8 +17,6 @@ Write a query to list all employees and their department names (without using JO
 Write a query to update an employee's department.
 Try deleting a department and observe what happens to the employees under that department.
 ---------------------------------------------------------------------------------------------------------
-
-
  use assignment;
 Database changed
 mysql> create table department ( departmentid int unique, departmentname varchar(50) unique not null );
@@ -104,3 +102,42 @@ mysql> select * from employees;
 |          5 | swatibhuti   |  90000 |            5 |
 +------------+--------------+--------+--------------+
 4 rows in set (0.00 sec)
+
+
+ update department set departmentid =50 where departmentid =5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from department;
++--------------+----------------+
+| departmentid | departmentname |
++--------------+----------------+
+|            1 | it             |
+|            3 | sales          |
+|            4 | accounts       |
+|           50 | cs             |
++--------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employees;
++------------+--------------+--------+--------------+
+| employeeid | employeename | salary | departmentid |
++------------+--------------+--------+--------------+
+|          1 | garima       |  50000 |            1 |
+|          3 | manish       |  70000 |            3 |
+|          4 | shreya       |  80000 |            4 |
+|          5 | swatibhuti   |  90000 |           50 |
++------------+--------------+--------+--------------+
+4 rows in set (0.00 sec)
+
+select employees.employeename, department.departmentname from employees, department  where employees.departmentid= department.departmentid;
++--------------+----------------+
+| employeename | departmentname |
++--------------+----------------+
+| garima       | it             |
+| manish       | sales          |
+| shreya       | accounts       |
+| swatibhuti   | cs             |
++--------------+----------------+
+4 rows in set (0.01 sec)
+
