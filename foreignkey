@@ -1,0 +1,106 @@
+A company wants to manage its employees and their respective departments. Each employee must belong to a department. If a department is deleted, all employees in that department should also be removed automatically.
+Tasks:
+1. Create the Departments Table
+Each department has a unique ID (DepartmentID).
+The department name must be unique.
+The department name cannot be NULL.
+2. Create the Employees Table
+Each employee has a unique ID (EmployeeID).
+Each employee has a name and salary, both cannot be NULL.
+Each employee must be assigned to a department (DepartmentID), which is a FOREIGN KEY referencing Departments(DepartmentID).
+If a department is deleted, all employees in that department should also be deleted.
+3. Insert Sample Data
+Insert at least 3 departments.
+Insert at least 5 employees (make sure at least two employees belong to the same department).
+4. Implement Query Constraints (Without Using JOIN)
+Write a query to list all employees and their department names (without using JOIN).
+Write a query to update an employee's department.
+Try deleting a department and observe what happens to the employees under that department.
+---------------------------------------------------------------------------------------------------------
+
+
+ use assignment;
+Database changed
+mysql> create table department ( departmentid int unique, departmentname varchar(50) unique not null );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into department values ( 1, "it");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into department values ( 2, "finance");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into department values ( 3, "sales");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into department values ( 4, "accounts");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into department values ( 5, "cs");
+Query OK, 1 row affected (0.01 sec)
+
+ create table Employees ( employeeid int unique, employeename varchar(50) not null, salary double not null, depart
+mentid int, foreign key ( departmentid ) references department (departmentid ) on delete cascade on update cascade);
+Query OK, 0 rows affected (0.04 sec)
+mysql> insert into Employees value (1, "garima" , 50000, 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employees value (2, "sonam" , 60000, 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employees value (3, "manish" , 70000, 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employees value (4, "shreya" , 80000, 4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employees value (5, "swatibhuti" , 90000, 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department;
++--------------+----------------+
+| departmentid | departmentname |
++--------------+----------------+
+|            1 | it             |
+|            2 | finance        |
+|            3 | sales          |
+|            4 | accounts       |
+|            5 | cs             |
++--------------+----------------+
+5 rows in set (0.01 sec)
+mysql> select * from  employees;
++------------+--------------+--------+--------------+
+| employeeid | employeename | salary | departmentid |
++------------+--------------+--------+--------------+
+|          1 | garima       |  50000 |            1 |
+|          2 | sonam        |  60000 |            2 |
+|          3 | manish       |  70000 |            3 |
+|          4 | shreya       |  80000 |            4 |
+|          5 | swatibhuti   |  90000 |            5 |
+|          7 | sudha        |  50000 |            2 |
++------------+--------------+--------+--------------+
+6 rows in set (0.00 sec)
+ delete from department where departmentid=2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department;
++--------------+----------------+
+| departmentid | departmentname |
++--------------+----------------+
+|            1 | it             |
+|            3 | sales          |
+|            4 | accounts       |
+|            5 | cs             |
++--------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employees;
++------------+--------------+--------+--------------+
+| employeeid | employeename | salary | departmentid |
++------------+--------------+--------+--------------+
+|          1 | garima       |  50000 |            1 |
+|          3 | manish       |  70000 |            3 |
+|          4 | shreya       |  80000 |            4 |
+|          5 | swatibhuti   |  90000 |            5 |
++------------+--------------+--------+--------------+
+4 rows in set (0.00 sec)
