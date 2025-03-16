@@ -1,0 +1,97 @@
+Assignment 1:
+ Understanding INNER JOIN
+Problem Statement:
+Consider the following tables:
+Employees
+emp_id	emp_name	dept_id
+1	Alice		101
+2	Bob		102
+3	Charlie		103
+4	David		101
+Departments
+dept_id	  dept_name
+101	      HR
+102     	IT
+104	     Finance
+
+Tasks:
+
+Write a query to display employees and their corresponding department names using INNER JOIN.
+Modify the query to display only employees who belong to the "HR" department.
+
+-----------------------------------------------------------------------------------------
+
+
+
+
+
+ans
+
+
+
+ create database p;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use p;
+Database changed
+mysql> create table employees ( empid int primary key auto_increment, empname varchar(50), deptid int );
+Query OK, 0 rows affected (0.03 sec)
+ insert into  employees(empname , deptid) values ("alice" , 101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  employees(empname , deptid) values ("bob" , 102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  employees(empname , deptid) values ("charlie" , 103);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  employees(empname , deptid) values ("david" , 101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++-------+---------+--------+
+| empid | empname | deptid |
++-------+---------+--------+
+|     1 | alice   |    101 |
+|     2 | bob     |    102 |
+|     3 | charlie |    103 |
+|     4 | david   |    101 |
++-------+---------+--------+
+4 rows in set (0.00 sec)
+mysql> create table departments(deptid int , departmentname varchar (50));
+Query OK, 0 rows affected (0.02 sec)
+ insert into departments values (101, "hr");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into departments values (102, "it");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into departments values (104, "finance");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from departments;
++--------+----------------+
+| deptid | departmentname |
++--------+----------------+
+|    101 | hr             |
+|    102 | it             |
+|    104 | finance        |
++--------+----------------+
+3 rows in set (0.00 sec)
+select employees.empname, departments.departmentname from employees inner join departments on employees.deptid=de
+partments.deptid;
++---------+----------------+
+| empname | departmentname |
++---------+----------------+
+| alice   | hr             |
+| bob     | it             |
+| david   | hr             |
++---------+----------------+ select employees.empid, employees.empname, departments.departmentname from employees inner join departments on em
+ployees.deptid=departments.deptid where departments.departmentname="hr";
++-------+---------+----------------+
+| empid | empname | departmentname |
++-------+---------+----------------+
+|     1 | alice   | hr             |
+|     4 | david   | hr             |
++-------+---------+----------------+
+2 rows in set (0.00 sec)
