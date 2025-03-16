@@ -1,0 +1,144 @@
+ /*QNO 2:
+
+Customer and Orders 
+Problem Statement:
+A retail store wants to generate a report displaying all customers and their latest order details. The report should include customers who have not placed any orders.
+
+Tables:
+Customer (cust_id, cust_name)
+Orders (order_id, cust_id, order_date, total_amount)
+Query 1:
+Write an SQL query using LEFT JOIN to display all customers with their order details, ensuring that customers with no orders are still included in the result.
+
+Query 2:
+Problem Statement:
+The store wants to generate a report including all orders placed, even if the customer record is missing (i.e., orphan orders due to data inconsistency).
+
+Query 3:
+The store wants a comprehensive report showing all customers and all orders, even if some customers have no orders and some orders have missing customer details.
+
+Query 4:
+Problem Statement:
+The store wants to analyze all possible customer-order pairings, regardless of actual transactions.
+ */
+ 
+ 
+ 
+ use  customer_management;
+Database changed
+ create table customers ( custid int auto_increment primary key, custname varchar (50));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into customers ( custname ) values ( " garima " );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers ( custname ) values ( "little" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers ( custname ) values ( "sonam" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customers ( custname ) values ( "sunena" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table orders(orderid int, custid int, orderdate date , totalamount double );
+Query OK, 0 rows affected (0.03 sec)
+ insert into orders values (1, 1, "2024-04-04"
+    -> , 50000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values (2 ,2, "2022-03-01" , 60000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values (3 ,3, "2025-03-01" , 70000);.
+Query OK, 1 row affected (0.00 sec)
+ insert into orders values (4 ,4, "2022-03-01" , 60000);
+Query OK, 1 row affected (0.00 sec)
+ERROR 1292 (22007): Incorrect date value: 'null' for column 'orderdate' at row 1
+mysql> insert into orders values ( null,6, null , 0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values ( null,7, null , 0);
+Query OK, 1 row affected (0.01 sec)
+mysql> select * from customers;
++--------+----------+
+| custid | custname |
++--------+----------+
+|      1 |  garima  |
+|      2 | little   |
+|      3 | sonam    |
+|      4 | sunena   |
++--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from orders;
++---------+--------+------------+-------------+
+| orderid | custid | orderdate  | totalamount |
++---------+--------+------------+-------------+
+|       1 |      1 | 2024-04-04 |       50000 |
+|       2 |      2 | 2022-03-01 |       60000 |
+|       3 |      3 | 2025-03-01 |       70000 |
+|       4 |      4 | 2022-03-01 |       60000 |
+|       5 |      5 | 2022-03-01 |       60000 |
+|    NULL |      6 | NULL       |           0 |
+|    NULL |      7 | NULL       |           0 |
++---------+--------+------------+-------------+
+
+mysql>
+ select customers.custname, customers.custid, orders.orderid , orders.orderdate, orders.totalamount from orders le
+ft join  customers on  orders.custid= customers.custid;
++----------+--------+---------+------------+-------------+
+| custname | custid | orderid | orderdate  | totalamount |
++----------+--------+---------+------------+-------------+
+|  garima  |      1 |       1 | 2024-04-04 |       50000 |
+| little   |      2 |       2 | 2022-03-01 |       60000 |
+| sonam    |      3 |       3 | 2025-03-01 |       70000 |
+| sunena   |      4 |       4 | 2022-03-01 |       60000 |
+| NULL     |   NULL |       5 | 2022-03-01 |       60000 |
+| NULL     |   NULL |    NULL | NULL       |           0 |
+| NULL     |   NULL |    NULL | NULL       |           0 |
++----------+--------+---------+------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select customers.custname, customers.custid, orders.orderid , orders.orderdate, orders.totalamount from orders left join  customers on  orders.custid= customers.custid where  orders.orderid is not null;
++----------+--------+---------+------------+-------------+
+| custname | custid | orderid | orderdate  | totalamount |
++----------+--------+---------+------------+-------------+
+|  garima  |      1 |       1 | 2024-04-04 |       50000 |
+| little   |      2 |       2 | 2022-03-01 |       60000 |
+| sonam    |      3 |       3 | 2025-03-01 |       70000 |
+| sunena   |      4 |       4 | 2022-03-01 |       60000 |
+| NULL     |   NULL |       5 | 2022-03-01 |       60000 |
++----------+--------+---------+------------+-------------+
+5 rows in set (0.00 sec)
+ insert into orders values (3 ,3, null , null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from orders;
++---------+--------+------------+-------------+
+| orderid | custid | orderdate  | totalamount |
++---------+--------+------------+-------------+
+|       1 |      1 | 2024-04-04 |       50000 |
+|       2 |      2 | 2022-03-01 |       60000 |
+|       3 |      3 | 2025-03-01 |       70000 |
+|       4 |      4 | 2022-03-01 |       60000 |
+|       5 |      5 | 2022-03-01 |       60000 |
+|    NULL |      6 | NULL       |           0 |
+|    NULL |      7 | NULL       |           0 |
+|       3 |      3 | NULL       |        NULL |
++---------+--------+------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select customers.custid , customers.custname, orders.orderid, orders.orderdate, orders.totalamount from customers left join orders on customers.custid = orders.custid union  select customers.custid , customers.custname, orders.orderid, orders.orderdate, orders.totalamount from customers right join orders on customers.custid = orders.custid;
++--------+----------+---------+------------+-------------+
+| custid | custname | orderid | orderdate  | totalamount |
++--------+----------+---------+------------+-------------+
+|      1 |  garima  |       1 | 2024-04-04 |       50000 |
+|      2 | little   |       2 | 2022-03-01 |       60000 |
+|      3 | sonam    |       3 | NULL       |        NULL |
+|      3 | sonam    |       3 | 2025-03-01 |       70000 |
+|      4 | sunena   |       4 | 2022-03-01 |       60000 |
+|   NULL | NULL     |       5 | 2022-03-01 |       60000 |
+|   NULL | NULL     |    NULL | NULL       |           0 |
++--------+----------+---------+------------+-------------+
+7 rows in set (0.00 sec)
